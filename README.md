@@ -1,1 +1,1 @@
-# AI-ML-DeepLearning-Practice
+# Data Science Camp, DSCC, NITJ
