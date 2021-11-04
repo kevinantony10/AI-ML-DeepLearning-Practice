@@ -41,8 +41,7 @@ void student::problemtype_difficulty(){
             if(problemType == 6) return ; // terminate the program.
             if(problemType < 1 && problemType > 5)
             {
-                printf("That's an invalid input.");
-                
+                cout << "That's an invalid input."<<endl;
             }
             else break;
             
@@ -147,8 +146,7 @@ void student::getQuestion(int questionType, int difficultyLevel)
 
 int student::getNumber(int difficultyLevel)
 {
-    // we don't want to generate number 0. ( in case of divisions)
-    // hence this check.
+    // we don't want to generate number 0. ( in case of divisions) hence this check.
     int number = 0;
     do
     {
