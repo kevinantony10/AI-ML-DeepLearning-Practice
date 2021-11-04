@@ -44,6 +44,6 @@ Module 4: Modify the program to enter a difficulty level at a difficulty level o
 only single digit numbers in the problems at a difficulty level of two the number as large as two digits
 and so on
 
-Module 5: Modify the program to allow the user to pick up a type of automatic problem to study an
-option of 1 means and problem leaks two means subtraction problems only three means multiplication
-problems only four means division problems only and five means a random mixture of all these dates
+Module 5: Modify the program from Part 4 to allow the user to pick a type of arithmetic problem to study. An option
+of 1 means addition problems only, 2 means multiplication problems only, 3 means subtraction problems
+only, 4 means division problems only and 5 means a random mixture of all these types.
