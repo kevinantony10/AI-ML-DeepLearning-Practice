@@ -2,6 +2,7 @@
 #include<cmath>
 #include<ctime>
 using namespace std;
+
 class student{
     int rightAnswers=0,wrongAnswers=0,roll;
     string name;
@@ -23,6 +24,7 @@ void student::get_studentdetails(){
     cin>>roll;
     
 }
+
 void student::display_studentdetails(){
     cout<< "Welcome "<<name<<", glad to see you !"<<endl;
 }
@@ -36,8 +38,8 @@ void student::problemtype_difficulty(){
         int problemType = 0;
         do
         {
-            printf("\nPick your problem (1 to 5) or 6 to terminate: ");
-            scanf("%d", &problemType);
+            cout<<"\nPick your problem (1 to 5) or 6 to terminate: "; 
+            cin>> problemType;
             if(problemType == 6) return ; // terminate the program.
             if(problemType < 1 && problemType > 5)
             {
@@ -50,8 +52,8 @@ void student::problemtype_difficulty(){
         do
         {
             // lets limit to 3 levels.
-            printf("\nEnter difficulty level (1 to 3): ");
-            scanf("%d", &difficultyLevel);
+            cout<<"\nEnter difficulty level (1 to 3): "; 
+            cin>> difficultyLevel;
             if(difficultyLevel < 1 && difficultyLevel > 3)
             {
                 cout << "\nThat's an invalid input."<<endl;
@@ -101,7 +103,7 @@ void student::getQuestion(int questionType, int difficultyLevel)
             case 4: op = '/'; break;
             
         }
-        printf("\nHow much is %d %c %d? ", firstNumber, op, secondNumber);
+        cout <<"\nHow much is "<<firstNumber<<" "<<op<<" "<<secondNumber<<"?"<<endl;
         double studentAnswer = 0, answer = 0;
         scanf("%lf", &studentAnswer);
         switch(questionType)
@@ -165,7 +167,7 @@ void student::printCorrectAnswer()
 {
     const static char message[][40] = {"Very good!", "Excellent!", "Nice Work!", "Keep the good work!"};
     int messageIndex = getRandomNumberBetweenRange(0,3);
-    printf("%s", message[messageIndex]);
+    cout << message[messageIndex] <<endl;
     rightAnswers++;
 }
 
@@ -173,11 +175,12 @@ void student::printWrongAnswer()
 {
     const static char message[][40] = {"No. Please try again.", "Wrong. Try once more.", "Don't give up!", "No. Keep trying"};
     int messageIndex = getRandomNumberBetweenRange(0,3);
-    printf("%s", message[messageIndex]);
+    cout << message[messageIndex] <<endl;
     wrongAnswers++;
 }
 
-int main(){
+int main()
+{
     student s1;
     s1.get_studentdetails();
     s1.display_studentdetails();
