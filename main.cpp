@@ -1,6 +1,7 @@
 #include<bits/stdc++.h>
 #include<cmath>
 #include<ctime>
+#include <windows.h>
 using namespace std;
 
 class cai{
@@ -10,7 +11,7 @@ class cai{
     string name;
     
     void get_studentdetails();
-    void display_studentdetails();
+ 
     void problemtype_difficulty();
     void getQuestion(int questionType,int difficultyLevel);
     int getNumber(int difficultyLevel);
@@ -18,8 +19,6 @@ class cai{
     void Answer(int);//function overloading 
     void Answer(char );
 };
-
-
 
 void cai::get_studentdetails(){
     cout<< "Enter your Name :";
@@ -29,9 +28,7 @@ void cai::get_studentdetails(){
     
 }
 
-void cai::display_studentdetails(){
-    cout<< "Welcome "<<name<<", glad to see you !"<<endl;
-}
+
 
 void cai::problemtype_difficulty(){
     srand(time(0));
@@ -184,61 +181,24 @@ void cai::Answer(char a)
     cout << message[messageIndex] <<endl;
     wrongAnswers++;
 }
-class student: public cai{};
+class student: public cai{
+    public:
+   
+    friend void display_studentdetails(student s);
+};
 
-void pattern(int wave_height, int wave_length)
-{
-	int i, j, k, e, n, count, x;
-	e = 2;
-	x = 1;
 
-	int c1 = 'A' + wave_height - 1;
-	int c2 = 'A' + wave_height;
 
-	// for loop for height of wave
-	for (i = 1; i <= wave_height; i++) {
-		for (j = wave_height; j <= wave_height + i; j++) {
-			cout << " ";
-		}
-
-		// for loop for wave length
-		for (count = 1; count <= wave_length; count++) {
-
-			// checking for intermediate spaces
-			for (n = (wave_height + wave_height - 2); n >= x; n--)
-				cout << " ";
-			for (k = 1; k <= e; k++) {
-				if (k == 1)
-					cout << (char)c1 << " ";
-				else if (k == e)
-					cout << (char)c2 << " ";
-				else
-					cout << " ";
-			}
-			c1 = c1 + wave_height * 2;
-			c2 = c2 + wave_height * 2;
-
-			// checking the limit
-			if (c1 > 'Z')
-				c1 = c1 - 26;
-			if (c2 > 'Z')
-				c2 = c2 - 26;
-		}
-
-		// incrementing counters value by two
-		x = x + 2;
-		e = e + 2;
-		c1 = 'A' + wave_height - i - 1;
-		c2 = 'A' + wave_height + i;
-		cout << endl;
-	}
+void display_studentdetails(student s){
+    cout<< "Welcome "<<s.name<<", glad to see you !"<<endl;
 }
+
+
 
 int main()
 {
-    pattern(3, 6);
     student s1;
     s1.get_studentdetails();
-    s1.display_studentdetails();
+    display_studentdetails(s1);
     s1.problemtype_difficulty();
 }
