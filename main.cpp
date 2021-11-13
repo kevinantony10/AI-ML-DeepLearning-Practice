@@ -1,23 +1,26 @@
 #include<bits/stdc++.h>
 #include<cmath>
 #include<ctime>
+#include <windows.h>
 using namespace std;
 
-class student{
+class cai{
+    public:
+
     int rightAnswers=0,wrongAnswers=0,roll;
     string name;
-    public:
+    
     void get_studentdetails();
-    void display_studentdetails();
+ 
     void problemtype_difficulty();
     void getQuestion(int questionType,int difficultyLevel);
     int getNumber(int difficultyLevel);
     int getRandomNumberBetweenRange(int start,int end);
-    void printCorrectAnswer();
-    void printWrongAnswer();
+    void Answer(int);//function overloading 
+    void Answer(char );
 };
 
-void student::get_studentdetails(){
+void cai::get_studentdetails(){
     cout<< "Enter your Name :";
     cin>>name;
     cout<< "Enter your Roll Number :";
@@ -25,18 +28,16 @@ void student::get_studentdetails(){
     
 }
 
-void student::display_studentdetails(){
-    cout<< "Welcome "<<name<<", glad to see you !"<<endl;
-}
 
-void student::problemtype_difficulty(){
+
+void cai::problemtype_difficulty(){
     srand(time(0));
     int questionsCount = 0;
     do
     {
         cout << "\n1. Addition problems\n2. Subtraction problems \n3. Multiplication problems\n4. Division problems\n5. Mixed\n6. Terminate"<<endl;
         int problemType = 0;
-        do
+        while(1)
         {
             cout<<"\nPick your problem (1 to 5) or 6 to terminate: "; 
             cin>> problemType;
@@ -47,9 +48,9 @@ void student::problemtype_difficulty(){
             }
             else break;
             
-        }while(1);
+        }
         int difficultyLevel = 0;
-        do
+        while(1)
         {
             // lets limit to 3 levels.
             cout<<"\nEnter difficulty level (1 to 3): "; 
@@ -61,7 +62,7 @@ void student::problemtype_difficulty(){
             }
             else break;
             
-        }while(1);
+        }
         while(questionsCount < 10)
         {
             getQuestion(problemType, difficultyLevel);
@@ -87,14 +88,15 @@ void student::problemtype_difficulty(){
     return ;
 }
 
-void student::getQuestion(int questionType, int difficultyLevel)
+void cai::getQuestion(int questionType, int difficultyLevel)
 {
     int firstNumber = getNumber(difficultyLevel);
     int secondNumber = getNumber(difficultyLevel);
     if(questionType == 5) questionType = getRandomNumberBetweenRange(1,4);
     char op = ' ';
-    do
-    {
+    int ct=0;//questionsCount = ct
+    // do
+    // {
         switch(questionType)
         {
             case 1: op = '+'; break;
@@ -105,7 +107,7 @@ void student::getQuestion(int questionType, int difficultyLevel)
         }
         cout <<"\nHow much is "<<firstNumber<<" "<<op<<" "<<secondNumber<<"?"<<endl;
         double studentAnswer = 0, answer = 0;
-        scanf("%lf", &studentAnswer);
+        cin>>studentAnswer;
         switch(questionType)
         {
             case 1: answer = firstNumber + secondNumber; break;
@@ -114,17 +116,18 @@ void student::getQuestion(int questionType, int difficultyLevel)
             case 4: answer = (double)firstNumber / secondNumber; break;
             
         }
+        ct++;
         if(questionType == 4)
         {
             if(abs(answer-studentAnswer) < 0.01)
             {
-                printCorrectAnswer();
-                break;
+                Answer(1);
+                // break;
                 
             }
             else
             {
-                printWrongAnswer();
+                Answer('a');
             }
             
         }
@@ -132,21 +135,21 @@ void student::getQuestion(int questionType, int difficultyLevel)
         {
             if(studentAnswer == answer)
             {
-                printCorrectAnswer();
-                break;
+                Answer(1);
+                // break;
             }
             else
             {
-                printWrongAnswer();
+                Answer('a');
                 
             }
             
         }
         
-    }while(1);
+    // }while(ct<10);
 }
 
-int student::getNumber(int difficultyLevel)
+int cai::getNumber(int difficultyLevel)
 {
     // we don't want to generate number 0. ( in case of divisions) hence this check.
     int number = 0;
@@ -158,12 +161,12 @@ int student::getNumber(int difficultyLevel)
     return number;
 }
 
-int student::getRandomNumberBetweenRange(int start, int end)
+int cai::getRandomNumberBetweenRange(int start, int end)
 {
     return (rand() % (end - start + 1)) + start;
 }
 
-void student::printCorrectAnswer()
+void cai::Answer(int a)
 {
     const static char message[][40] = {"Very good!", "Excellent!", "Nice Work!", "Keep the good work!"};
     int messageIndex = getRandomNumberBetweenRange(0,3);
@@ -171,18 +174,31 @@ void student::printCorrectAnswer()
     rightAnswers++;
 }
 
-void student::printWrongAnswer()
+void cai::Answer(char a)
 {
     const static char message[][40] = {"No. Please try again.", "Wrong. Try once more.", "Don't give up!", "No. Keep trying"};
     int messageIndex = getRandomNumberBetweenRange(0,3);
     cout << message[messageIndex] <<endl;
     wrongAnswers++;
 }
+class student: public cai{
+    public:
+   
+    friend void display_studentdetails(student s);
+};
+
+
+
+void display_studentdetails(student s){
+    cout<< "Welcome "<<s.name<<", glad to see you !"<<endl;
+}
+
+
 
 int main()
 {
     student s1;
     s1.get_studentdetails();
-    s1.display_studentdetails();
+    display_studentdetails(s1);
     s1.problemtype_difficulty();
 }
