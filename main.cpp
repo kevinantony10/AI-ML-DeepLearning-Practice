@@ -3,21 +3,25 @@
 #include<ctime>
 using namespace std;
 
-class student{
+class cai{
+    public:
+
     int rightAnswers=0,wrongAnswers=0,roll;
     string name;
-    public:
+    
     void get_studentdetails();
     void display_studentdetails();
     void problemtype_difficulty();
     void getQuestion(int questionType,int difficultyLevel);
     int getNumber(int difficultyLevel);
     int getRandomNumberBetweenRange(int start,int end);
-    void printCorrectAnswer();
-    void printWrongAnswer();
+    void Answer(int);//function overloading 
+    void Answer(char );
 };
 
-void student::get_studentdetails(){
+
+
+void cai::get_studentdetails(){
     cout<< "Enter your Name :";
     cin>>name;
     cout<< "Enter your Roll Number :";
@@ -25,18 +29,18 @@ void student::get_studentdetails(){
     
 }
 
-void student::display_studentdetails(){
+void cai::display_studentdetails(){
     cout<< "Welcome "<<name<<", glad to see you !"<<endl;
 }
 
-void student::problemtype_difficulty(){
+void cai::problemtype_difficulty(){
     srand(time(0));
     int questionsCount = 0;
     do
     {
         cout << "\n1. Addition problems\n2. Subtraction problems \n3. Multiplication problems\n4. Division problems\n5. Mixed\n6. Terminate"<<endl;
         int problemType = 0;
-        do
+        while(1)
         {
             cout<<"\nPick your problem (1 to 5) or 6 to terminate: "; 
             cin>> problemType;
@@ -47,9 +51,9 @@ void student::problemtype_difficulty(){
             }
             else break;
             
-        }while(1);
+        }
         int difficultyLevel = 0;
-        do
+        while(1)
         {
             // lets limit to 3 levels.
             cout<<"\nEnter difficulty level (1 to 3): "; 
@@ -61,7 +65,7 @@ void student::problemtype_difficulty(){
             }
             else break;
             
-        }while(1);
+        }
         while(questionsCount < 10)
         {
             getQuestion(problemType, difficultyLevel);
@@ -87,14 +91,15 @@ void student::problemtype_difficulty(){
     return ;
 }
 
-void student::getQuestion(int questionType, int difficultyLevel)
+void cai::getQuestion(int questionType, int difficultyLevel)
 {
     int firstNumber = getNumber(difficultyLevel);
     int secondNumber = getNumber(difficultyLevel);
     if(questionType == 5) questionType = getRandomNumberBetweenRange(1,4);
     char op = ' ';
-    do
-    {
+    int ct=0;//questionsCount = ct
+    // do
+    // {
         switch(questionType)
         {
             case 1: op = '+'; break;
@@ -105,7 +110,7 @@ void student::getQuestion(int questionType, int difficultyLevel)
         }
         cout <<"\nHow much is "<<firstNumber<<" "<<op<<" "<<secondNumber<<"?"<<endl;
         double studentAnswer = 0, answer = 0;
-        scanf("%lf", &studentAnswer);
+        cin>>studentAnswer;
         switch(questionType)
         {
             case 1: answer = firstNumber + secondNumber; break;
@@ -114,17 +119,18 @@ void student::getQuestion(int questionType, int difficultyLevel)
             case 4: answer = (double)firstNumber / secondNumber; break;
             
         }
+        ct++;
         if(questionType == 4)
         {
             if(abs(answer-studentAnswer) < 0.01)
             {
-                printCorrectAnswer();
-                break;
+                Answer(1);
+                // break;
                 
             }
             else
             {
-                printWrongAnswer();
+                Answer('a');
             }
             
         }
@@ -132,21 +138,21 @@ void student::getQuestion(int questionType, int difficultyLevel)
         {
             if(studentAnswer == answer)
             {
-                printCorrectAnswer();
-                break;
+                Answer(1);
+                // break;
             }
             else
             {
-                printWrongAnswer();
+                Answer('a');
                 
             }
             
         }
         
-    }while(1);
+    // }while(ct<10);
 }
 
-int student::getNumber(int difficultyLevel)
+int cai::getNumber(int difficultyLevel)
 {
     // we don't want to generate number 0. ( in case of divisions) hence this check.
     int number = 0;
@@ -158,12 +164,12 @@ int student::getNumber(int difficultyLevel)
     return number;
 }
 
-int student::getRandomNumberBetweenRange(int start, int end)
+int cai::getRandomNumberBetweenRange(int start, int end)
 {
     return (rand() % (end - start + 1)) + start;
 }
 
-void student::printCorrectAnswer()
+void cai::Answer(int a)
 {
     const static char message[][40] = {"Very good!", "Excellent!", "Nice Work!", "Keep the good work!"};
     int messageIndex = getRandomNumberBetweenRange(0,3);
@@ -171,16 +177,66 @@ void student::printCorrectAnswer()
     rightAnswers++;
 }
 
-void student::printWrongAnswer()
+void cai::Answer(char a)
 {
     const static char message[][40] = {"No. Please try again.", "Wrong. Try once more.", "Don't give up!", "No. Keep trying"};
     int messageIndex = getRandomNumberBetweenRange(0,3);
     cout << message[messageIndex] <<endl;
     wrongAnswers++;
 }
+class student: public cai{};
+
+void pattern(int wave_height, int wave_length)
+{
+	int i, j, k, e, n, count, x;
+	e = 2;
+	x = 1;
+
+	int c1 = 'A' + wave_height - 1;
+	int c2 = 'A' + wave_height;
+
+	// for loop for height of wave
+	for (i = 1; i <= wave_height; i++) {
+		for (j = wave_height; j <= wave_height + i; j++) {
+			cout << " ";
+		}
+
+		// for loop for wave length
+		for (count = 1; count <= wave_length; count++) {
+
+			// checking for intermediate spaces
+			for (n = (wave_height + wave_height - 2); n >= x; n--)
+				cout << " ";
+			for (k = 1; k <= e; k++) {
+				if (k == 1)
+					cout << (char)c1 << " ";
+				else if (k == e)
+					cout << (char)c2 << " ";
+				else
+					cout << " ";
+			}
+			c1 = c1 + wave_height * 2;
+			c2 = c2 + wave_height * 2;
+
+			// checking the limit
+			if (c1 > 'Z')
+				c1 = c1 - 26;
+			if (c2 > 'Z')
+				c2 = c2 - 26;
+		}
+
+		// incrementing counters value by two
+		x = x + 2;
+		e = e + 2;
+		c1 = 'A' + wave_height - i - 1;
+		c2 = 'A' + wave_height + i;
+		cout << endl;
+	}
+}
 
 int main()
 {
+    pattern(3, 6);
     student s1;
     s1.get_studentdetails();
     s1.display_studentdetails();
