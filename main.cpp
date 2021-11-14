@@ -9,14 +9,14 @@ class cai{
 
     int rightAnswers=0,wrongAnswers=0,roll;
     string name;
-    
+
     void get_studentdetails();
- 
+
     void problemtype_difficulty();
     void getQuestion(int questionType,int difficultyLevel);
     int getNumber(int difficultyLevel);
     int getRandomNumberBetweenRange(int start,int end);
-    void Answer(int);//function overloading 
+    void Answer(int);//function overloading
     void Answer(char );
 };
 
@@ -25,7 +25,7 @@ void cai::get_studentdetails(){
     cin>>name;
     cout<< "Enter your Roll Number :";
     cin>>roll;
-    
+
 }
 
 
@@ -39,7 +39,7 @@ void cai::problemtype_difficulty(){
         int problemType = 0;
         while(1)
         {
-            cout<<"\nPick your problem (1 to 5) or 6 to terminate: "; 
+            cout<<"\nPick your problem (1 to 5) or 6 to terminate: ";
             cin>> problemType;
             if(problemType == 6) return ; // terminate the program.
             if(problemType < 1 && problemType > 5)
@@ -47,43 +47,43 @@ void cai::problemtype_difficulty(){
                 cout << "That's an invalid input."<<endl;
             }
             else break;
-            
+
         }
         int difficultyLevel = 0;
         while(1)
         {
             // lets limit to 3 levels.
-            cout<<"\nEnter difficulty level (1 to 3): "; 
+            cout<<"\nEnter difficulty level (1 to 3): ";
             cin>> difficultyLevel;
             if(difficultyLevel < 1 && difficultyLevel > 3)
             {
                 cout << "\nThat's an invalid input."<<endl;
-                
+
             }
             else break;
-            
+
         }
         while(questionsCount < 10)
         {
             getQuestion(problemType, difficultyLevel);
             questionsCount++;
-            
+
         }
         int totalAnswers = rightAnswers + wrongAnswers;
         if((float)rightAnswers / totalAnswers < 0.75)
         {
             cout << "\nPlease ask your teacher for extra help."<<endl;
-            
+
         }
         else
         {
             cout << "\nCongratulations you are ready to go to the next level"<<endl;
-            
+
         }
         questionsCount = 0;
         rightAnswers = 0;
         wrongAnswers = 0;
-        
+
     }while(1);
     return ;
 }
@@ -103,7 +103,7 @@ void cai::getQuestion(int questionType, int difficultyLevel)
             case 2: op = '-'; break;
             case 3: op = '*'; break;
             case 4: op = '/'; break;
-            
+
         }
         cout <<"\nHow much is "<<firstNumber<<" "<<op<<" "<<secondNumber<<"?"<<endl;
         double studentAnswer = 0, answer = 0;
@@ -114,7 +114,7 @@ void cai::getQuestion(int questionType, int difficultyLevel)
             case 2: answer = firstNumber - secondNumber; break;
             case 3: answer = firstNumber * secondNumber; break;
             case 4: answer = (double)firstNumber / secondNumber; break;
-            
+
         }
         ct++;
         if(questionType == 4)
@@ -123,13 +123,13 @@ void cai::getQuestion(int questionType, int difficultyLevel)
             {
                 Answer(1);
                 // break;
-                
+
             }
             else
             {
                 Answer('a');
             }
-            
+
         }
         else
         {
@@ -141,11 +141,11 @@ void cai::getQuestion(int questionType, int difficultyLevel)
             else
             {
                 Answer('a');
-                
+
             }
-            
+
         }
-        
+
     // }while(ct<10);
 }
 
@@ -156,7 +156,7 @@ int cai::getNumber(int difficultyLevel)
     do
     {
         number = rand() % (int)pow(10, difficultyLevel);
-        
+
     }while(number == 0);
     return number;
 }
@@ -183,20 +183,19 @@ void cai::Answer(char a)
 }
 class student: public cai{
     public:
-   
+    student(){
+    cout<<"Welcome to CAI,you can test your mathematical skills here"<<endl;//default constructor
+    }
     friend void display_studentdetails(student s);
 };
-
-
 
 void display_studentdetails(student s){
     cout<< "Welcome "<<s.name<<", glad to see you !"<<endl;
 }
 
-
-
 int main()
 {
+
     student s1;
     s1.get_studentdetails();
     display_studentdetails(s1);
