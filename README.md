@@ -1,9 +1,13 @@
 # Computer Assisted Instruction (CAI) Tool
 
 Contributers: 
+
 Sandeep Reddy 
+
 Gourav Gujariya
+
 Kevin Antony
+
 (CSE 2nd Year , NITJ)
 
 As computer costs declined, it becomes feasible for every student, regardless of economic circumstance,
